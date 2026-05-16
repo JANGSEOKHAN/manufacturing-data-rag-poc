@@ -1,0 +1,67 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+!**/.env.example
+backend/env_file.txt
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cert
+id_rsa
+id_dsa
+id_ed25519
+
+# Local data and generated artifacts
+qdrant_storage/
+**/qdrant_storage/
+input/
+output/
+uploads/
+chat_history/
+logs/
+*.log
+*.sqlite
+*.db
+*.mmap
+*.dat
+*.sst
+
+# Private or proprietary source documents
+frontend/public/logo1.png
+frontend/public/img_ci_new.png
+admin-frontend/public/logo.png
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+
+# Local migration/debug dumps
+backup/
+**/backup/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

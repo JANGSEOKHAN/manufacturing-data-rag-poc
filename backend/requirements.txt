@@ -1,0 +1,36 @@
+# AI-KnowledgeOps Backend Requirements
+# Python 3.10+ 권장
+
+# Core Framework
+fastapi
+uvicorn[standard]
+python-dotenv
+python-multipart
+pydantic
+
+# LangChain
+langchain-core
+langchain-text-splitters
+langchain-ollama
+langchain-qdrant
+langchain-community
+langsmith
+
+# Ollama Client
+ollama
+
+# Vector Database
+qdrant-client
+
+# Data Processing
+numpy
+beautifulsoup4
+lxml
+PyYAML
+
+# HTTP & API
+requests
+httpx
+
+# Type Hints & Utils
+typing-extensions
