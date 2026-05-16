@@ -58,7 +58,7 @@ export default function QueryInterface() {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="예: NPM-D3 40008 에러 원인과 조치 알려줘 (Enter: 질문하기, Shift+Enter: 줄바꿈)"
+            placeholder="예: 샘플 장비 40008 에러 원인과 조치 알려줘 (Enter: 질문하기, Shift+Enter: 줄바꿈)"
             className="w-full px-4 py-3 border rounded-lg resize-none transition-colors"
             style={{ 
               borderColor: '#e5e7eb',
@@ -185,4 +185,3 @@ export default function QueryInterface() {
     </div>
   )
 }
-

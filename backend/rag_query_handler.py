@@ -90,12 +90,14 @@ def rag_query(req: Question):
         patterns_original = [rf'\b{machine_lower}\b']
         for keyword in MACHINE_KEYWORDS:
             patterns_original.append(rf'{machine_lower}\s+{keyword}')
-        patterns_original.append(rf'npm[-_\s]?{machine_lower}')
+        for prefix in FILE_PREFIX_PATTERNS:
+            patterns_original.append(rf'{re.escape(prefix.lower())}[-_\s]?{machine_lower}')
 
         patterns_no_space = []
         for keyword in MACHINE_KEYWORDS:
             patterns_no_space.append(rf'{machine_lower}{keyword}')
-        patterns_no_space.append(rf'npm{machine_lower}')
+        for prefix in FILE_PREFIX_PATTERNS:
+            patterns_no_space.append(rf'{re.escape(prefix.lower())}{machine_lower}')
 
         for pattern in patterns_original:
             if re.search(pattern, question_lower, re.IGNORECASE):
@@ -834,11 +836,11 @@ def rag_query(req: Question):
     - 컨텍스트에서 해당 코드나 부품 번호를 정확히 찾으세요. 에러 코드뿐만 아니라 부품 번호, 장비 코드 등 모든 형식을 찾으세요.
     - **본문 텍스트를 우선적으로 확인하고, 이미지 설명은 보조 참고 자료로만 사용하세요.**
     - 해당 코드의 **설명, 원인(Cause), 해결 방법(Solution), 위치, 기능** 등 모든 관련 정보를 자연스럽게 요약하여 제공하세요.
-- **여러 장비를 동시에 질문한 경우 (예: "D1과 W 장비 40001"):**
+- **여러 장비를 동시에 질문한 경우 (예: "A100과 B200 장비 40001"):**
     - 컨텍스트에서 각 장비별 정보를 **명확히 구분**하여 답변하세요.
     - 각 장비의 정보를 별도로 제시하되, 같은 내용을 반복하지 마세요.
-    - 예시 형식: "D1 장비의 경우: ... / W 장비의 경우: ..." 또는 "D1 장비: ... W 장비: ..."
-    - 각 장비의 문서([문서: NPM-D1 ...], [문서: NPM-W ...])를 구분하여 답변하세요.
+    - 예시 형식: "A100 장비의 경우: ... / B200 장비의 경우: ..." 또는 "A100 장비: ... B200 장비: ..."
+    - 각 장비의 문서([문서: DOC-A100 ...], [문서: DOC-B200 ...])를 구분하여 답변하세요.
 - **일반 질문:**
     - 질문의 의도를 파악하여 컨텍스트에서 가장 관련성 높은 정보를 찾아 답변하세요.
 - **목록 질문 (예: "에러 리스트"):**

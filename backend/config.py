@@ -55,13 +55,13 @@ for d in [HOST_INPUT_DIR, HOST_OUTPUT_DIR, CHAT_HISTORY_DIR]:
     d.mkdir(parents=True, exist_ok=True)
     os.chmod(d, 0o777)
 
-MACHINE_TYPES = {'D3', 'TT', 'W', 'D1'}
+MACHINE_TYPES = {'A100', 'B200', 'C300'}
 
 # ==========================================================
 # RAG 쿼리 핸들러 설정
 # ==========================================================
 # 파일명 접두사 패턴 (파일명이 이 접두사로 시작할 수 있음)
-FILE_PREFIX_PATTERNS = ['npm', 'NPM']  # 예: "NPM-D1", "npm-W" 등
+FILE_PREFIX_PATTERNS = ['doc', 'DOC']  # 예: "DOC-A100", "doc-B200" 등
 
 FILENAME_PATTERN_MAPPING = {}
 
@@ -70,7 +70,7 @@ MACHINE_KEYWORDS = ['장비', '기계']
 
 # 필터에서 제외할 키워드 (에러 코드로 인식하지 않을 단어)
 EXCLUDED_KEYWORDS = {
-    'NPM', 'ERROR', 'CODE', 'LIST', 'ALL', 'MENU', 
+    'DOC', 'ERROR', 'CODE', 'LIST', 'ALL', 'MENU',
     'FEEDER', 'CART', 'SPECIFICATION', 'NOZZLE', 'HEAD'
 }
 

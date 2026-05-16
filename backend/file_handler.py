@@ -354,11 +354,11 @@ def extract_equipment_metadata_from_file(filename: str, md_text: str) -> Dict[st
     파일명과 문서 앞부분을 함께 분석하여 메타데이터 생성
     
     Args:
-        filename: 파일명 (예: "NPM-D3 Error Code.docx")
+        filename: 파일명 (예: "DOC-A100 Error Code.docx")
         md_text: 마크다운 텍스트 (전체 또는 앞부분)
     
     Returns:
-        {"equipment_name": "NPM", "equipment_model": "D3"} 또는 None 값 포함
+        {"equipment_name": "DOC", "equipment_model": "A100"} 또는 None 값 포함
     """
     try:
         llm = get_llm()
@@ -386,25 +386,25 @@ def extract_equipment_metadata_from_file(filename: str, md_text: str) -> Dict[st
 **추출 규칙:**
 1. 파일명과 문서 내용을 모두 분석하여 장비 정보를 찾으세요
 2. 파일명이 "scan01", "final_scan_002"처럼 의미가 없어도, 문서 내용(제목, 표지, 첫 페이지 등)에서 장비 정보를 찾으세요
-   - 예시: 문서에 "Samsung SM481 Service Manual"이 있으면 → equipment_name: "Samsung", equipment_model: "SM481"
-   - 예시: 문서에 "Hanhwa Decan User Guide"가 있으면 → equipment_name: "Hanhwa", equipment_model: "Decan"
-   - 예시: 문서에 "NPM-W Error Code"가 있으면 → equipment_name: "NPM", equipment_model: "W"
-   - 예시: 파일명이 "NPM-D3 Manual.docx"이고 문서에도 "NPM-D3"가 있으면 → equipment_name: "NPM", equipment_model: "D3"
+   - 예시: 문서에 "Sample Machine A100 Service Guide"가 있으면 → equipment_name: "Sample Machine", equipment_model: "A100"
+   - 예시: 문서에 "Demo Loader B200 User Guide"가 있으면 → equipment_name: "Demo Loader", equipment_model: "B200"
+   - 예시: 문서에 "DOC-C300 Error Code"가 있으면 → equipment_name: "DOC", equipment_model: "C300"
+   - 예시: 파일명이 "DOC-A100 Manual.docx"이고 문서에도 "DOC-A100"가 있으면 → equipment_name: "DOC", equipment_model: "A100"
 3. 장비명은 찾았지만 모델명이 없는 경우도 있습니다. 이 경우 equipment_name만 추출하고 equipment_model은 null로 설정하세요
-   - 예시: 문서에 "NPM Service Manual"만 있고 모델명이 없으면 → equipment_name: "NPM", equipment_model: null
-   - 예시: 문서에 "Samsung Equipment Guide"만 있으면 → equipment_name: "Samsung", equipment_model: null
+   - 예시: 문서에 "Sample Machine Service Manual"만 있고 모델명이 없으면 → equipment_name: "Sample Machine", equipment_model: null
+   - 예시: 문서에 "Demo Equipment Guide"만 있으면 → equipment_name: "Demo Equipment", equipment_model: null
 4. 장비명과 모델명 모두 찾을 수 없으면 둘 다 null로 표시하세요
 5. 추측하지 말고 문서에서 명확히 보이는 것만 추출하세요
 6. JSON 형식만 답변하고 다른 설명은 하지 마세요
 
 **응답 예시:**
 {{
-  "equipment_name": "NPM",
-  "equipment_model": "D3"
+  "equipment_name": "DOC",
+  "equipment_model": "A100"
 }}
 또는 (장비명만 있는 경우)
 {{
-  "equipment_name": "NPM",
+  "equipment_name": "Sample Machine",
   "equipment_model": null
 }}
 또는 (둘 다 없는 경우)
@@ -621,7 +621,7 @@ def process_upload_file(filename: str):
                 logger.debug(f"추출된 코드: {codes}")
 
             if codes:
-                codes_filtered = {c for c in codes if c.lower() not in {'npm', 'd1', 'd3', 'error', 'code', 'list', 'all', 'menu', 'feeder', 'cart', 'specification', 'nozzle', 'head'}}
+                codes_filtered = {c for c in codes if c.lower() not in {'doc', 'a100', 'b200', 'c300', 'error', 'code', 'list', 'all', 'menu', 'feeder', 'cart', 'specification', 'nozzle', 'head'}}
                 codes_filtered = {c for c in codes_filtered if not (c.isdigit() and len(c) < 2)}
 
                 final_codes = sorted(list(codes_filtered))
@@ -934,7 +934,7 @@ def rebuild_vectorstore_from_existing_files():
                 codes = code_pattern.findall(clean_text_for_codes)
 
                 if codes:
-                    codes_filtered = {c for c in codes if c.lower() not in {'npm', 'd1', 'd3', 'error', 'code', 'list', 'all', 'menu', 'feeder', 'cart', 'specification', 'nozzle', 'head'}}
+                    codes_filtered = {c for c in codes if c.lower() not in {'doc', 'a100', 'b200', 'c300', 'error', 'code', 'list', 'all', 'menu', 'feeder', 'cart', 'specification', 'nozzle', 'head'}}
                     # 숫자만 있는 경우는 2자리 이상만 코드로 인식
                     codes_filtered = {c for c in codes_filtered if not (c.isdigit() and len(c) < 2)}
 

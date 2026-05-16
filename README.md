@@ -97,8 +97,8 @@ sudo systemctl restart docker
 ```bash
 # Python 가상환경 생성 및 활성화
 cd backend
-python3 -m venv smd-poc
-source smd-poc/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 
 # Python 패키지 설치
 pip install -r requirements.txt
@@ -157,12 +157,12 @@ nvm install 24
 
 ### 2.8 시스템 서비스 등록 (선택사항)
 ```bash
-# 백엔드: /etc/systemd/system/smd-backend.service
-# 프론트엔드: /etc/systemd/system/smd-frontend.service
-# 관리자 페이지: /etc/systemd/system/smd-admin-frontend.service
+# 백엔드: /etc/systemd/system/rag-backend.service
+# 프론트엔드: /etc/systemd/system/rag-frontend.service
+# 관리자 페이지: /etc/systemd/system/rag-admin-frontend.service
 
 sudo systemctl daemon-reload
-sudo systemctl enable --now smd-backend smd-frontend smd-admin-frontend
+sudo systemctl enable --now rag-backend rag-frontend rag-admin-frontend
 ```
 
 ---
@@ -203,7 +203,7 @@ sudo systemctl enable --now smd-backend smd-frontend smd-admin-frontend
 - `POST /rag_query`: 질의응답
   ```json
   {
-    "question": "NPM-D3 44014 에러 해결 방법 알려줘",
+    "question": "샘플 장비 44014 에러 해결 방법 알려줘",
     "k": 5
   }
   ```
@@ -224,7 +224,7 @@ sudo systemctl enable --now smd-backend smd-frontend smd-admin-frontend
 ## 6. 디렉터리 구조
 
 ```
-SMD_POC_v1/
+AI-KnowledgeOps/
 ├── backend/              # 백엔드 (FastAPI)
 │   ├── main.py
 │   ├── config.py
@@ -247,7 +247,7 @@ SMD_POC_v1/
 ```bash
 docker start qdrant mineru-vllm  # 컨테이너 시작
 cd backend
-source smd-poc/bin/activate
+source .venv/bin/activate
 uvicorn main:app --host localhost --port 8601
 ```
 
